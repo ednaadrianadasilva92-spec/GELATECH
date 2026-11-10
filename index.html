@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GELATECH | Cardápio</title>
+  <meta name="description" content="GELATECH: Tecnologia que conecta produção, organização e empreendedorismo.">
+  <meta name="theme-color" content="#D6336C">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="img/icone-192.png">
+  <link rel="apple-touch-icon" href="img/icone-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="tela-login">
+
+  <!-- =====================================================
+       TELA INICIAL: LOGIN DA PRODUTORA (sem # ou #entrar)
+       ===================================================== -->
+  <div id="modo-login">
+    <main class="login">
+      <section class="login-marca">
+        <div class="login-logo">
+          <img src="img/icone-192.png" alt="" width="56" height="56">
+          <div>
+            <h1 data-nome-negocio>GELATECH</h1>
+            <p>Tecnologia que conecta produção, organização e empreendedorismo</p>
+          </div>
+        </div>
+        <p class="login-chamada">Pedidos, clientes, produção, preços e resultado do mês em um só lugar.</p>
+        <ul class="login-modulos" id="login-modulos"></ul>
+        <a class="login-cliente" href="#cardapio">Sou cliente: ver o cardápio →</a>
+      </section>
+
+      <section class="login-cartao" aria-live="polite">
+        <form id="form-login" novalidate>
+          <h2>Entrar no painel</h2>
+          <label>Usuário
+            <input id="login-usuario" autocomplete="username" required>
+          </label>
+          <label>Senha
+            <span class="campo-senha">
+              <input id="login-senha" type="password" autocomplete="current-password" required>
+              <button type="button" class="btn-ver" data-ver-senha="login-senha" aria-pressed="false">Mostrar</button>
+            </span>
+          </label>
+          <p class="erro-form" id="erro-login" role="alert"></p>
+          <button class="btn btn-primario" type="submit">Entrar</button>
+          <button class="btn btn-texto" type="button" id="link-esqueci">Esqueci minha senha</button>
+        </form>
+
+        <form id="form-criar" novalidate hidden>
+          <h2>Primeiro acesso</h2>
+          <p class="suave">Crie o usuário e a senha da produtora. Eles valem para este aparelho.</p>
+          <label>Usuário
+            <input id="criar-usuario" autocomplete="username" required placeholder="Ex.: maria">
+          </label>
+          <label>Senha (mínimo 6 caracteres)
+            <span class="campo-senha">
+              <input id="criar-senha" type="password" autocomplete="new-password" required>
+              <button type="button" class="btn-ver" data-ver-senha="criar-senha" aria-pressed="false">Mostrar</button>
+            </span>
+          </label>
+          <label>Repita a senha
+            <input id="criar-confirmar" type="password" autocomplete="new-password" required>
+          </label>
+          <p class="erro-form" id="erro-criar" role="alert"></p>
+          <button class="btn btn-primario" type="submit">Criar acesso</button>
+        </form>
+
+        <div id="caixa-codigo" hidden>
+          <h2>Anote seu código de recuperação</h2>
+          <p>Se esquecer a senha, este código é o único jeito de criar uma nova. Ele aparece só agora.</p>
+          <p class="codigo" id="codigo-recuperacao">XXXX-XXXX</p>
+          <p class="suave">Escreva no guia impresso ou guarde em um lugar seguro, longe do celular.</p>
+          <button class="btn btn-primario" type="button" id="btn-anotei">Já anotei, entrar no painel</button>
+        </div>
+
+        <form id="form-recuperar" novalidate hidden>
+          <h2>Criar nova senha</h2>
+          <label>Código de recuperação
+            <input id="rec-codigo" autocomplete="off" placeholder="XXXX-XXXX" required>
+          </label>
+          <label>Nova senha
+            <input id="rec-senha" type="password" autocomplete="new-password" required>
+          </label>
+          <label>Repita a nova senha
+            <input id="rec-confirmar" type="password" autocomplete="new-password" required>
+          </label>
+          <p class="erro-form" id="erro-recuperar" role="alert"></p>
+          <button class="btn btn-primario" type="submit">Salvar nova senha</button>
+          <button class="btn btn-texto" type="button" id="link-voltar-login">Voltar para o login</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- =====================================================
+       CARDÁPIO DO CLIENTE (endereço sem # ou #cardapio)
+       ===================================================== -->
+  <div id="modo-vitrine" hidden>
+    <a class="pular" href="#catalogo">Pular para o cardápio</a>
+
+    <header class="topo">
+      <div class="container topo-conteudo">
+        <div class="marca">
+          <img src="img/icone-192.png" alt="" width="40" height="40">
+          <div>
+            <strong data-nome-negocio>GELATECH</strong>
+            <small id="slogan">Geladinho cremoso feito em casa</small>
+          </div>
+        </div>
+        <a class="btn btn-secundario btn-pequeno" href="#seu-pedido">Meu pedido</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Escolha seus sabores e peça pelo WhatsApp</h1>
+        <p>Monte o pedido aqui e toque em "Pedir pelo WhatsApp". A mensagem já vai pronta para a produtora.</p>
+        <p class="aviso-exemplo" id="aviso-exemplo" hidden>Preços de exemplo, ainda não confirmados pela produtora.</p>
+      </section>
+
+      <h2 class="titulo-secao">Cardápio</h2>
+      <section id="catalogo" class="grade-sabores" aria-live="polite">
+        <p class="vazio">Carregando cardápio...</p>
+      </section>
+
+      <section class="cartao cartao-fidelidade-info">
+        <div class="estrelas grandes" aria-hidden="true"><span class="estrela cheia">★</span><span class="estrela cheia">★</span><span class="estrela cheia">★</span><span class="estrela">★</span><span class="estrela">★</span></div>
+        <div>
+          <h2>Cartão fidelidade</h2>
+          <p id="regra-fidelidade">Cada geladinho vale 1 estrela.</p>
+        </div>
+      </section>
+
+      <section class="cartao" id="seu-pedido">
+        <h2>Seu pedido</h2>
+        <div id="resumo"></div>
+        <div class="form-grade">
+          <label>Seu nome
+            <input id="nome" autocomplete="name" required placeholder="Como devemos te chamar?">
+          </label>
+          <label>Seu WhatsApp (para o cartão fidelidade)
+            <input id="whats-cliente" type="tel" inputmode="tel" autocomplete="tel" placeholder="(66) 99999-9999">
+          </label>
+          <label>Como prefere receber?
+            <select id="entrega">
+              <option>Retirada</option>
+              <option>Entrega</option>
+            </select>
+          </label>
+          <label>Para quando? (opcional)
+            <input id="data" type="date">
+          </label>
+          <label>Observação (opcional)
+            <input id="obs" placeholder="Ex.: entregar na escola">
+          </label>
+        </div>
+        <p class="erro-form" id="aviso" role="alert"></p>
+        <p class="aviso-nuvem">Seu nome e seu WhatsApp são usados só para este pedido e para o seu cartão fidelidade.</p>
+      </section>
+    </main>
+
+    <div class="barra-carrinho" id="barra">
+      <div class="container barra-conteudo">
+        <div>
+          <span id="qtd-total">0 geladinhos</span>
+          <strong id="valor-total">R$ 0,00</strong>
+        </div>
+        <button id="btn-pedir" class="btn btn-whats" disabled>Pedir pelo WhatsApp</button>
+      </div>
+    </div>
+
+    <footer class="rodape container">
+      <p><strong>GELATECH</strong> · Tecnologia que conecta produção, organização e empreendedorismo. Sistema desenvolvido pela turma do Técnico em Informática para Internet, Senac MT.</p>
+      <p><a href="#entrar">Área da produtora</a></p>
+    </footer>
+  </div>
+
+  <!-- =====================================================
+       PAINEL DA PRODUTORA (#painel e #painel-<módulo>)
+       ===================================================== -->
+  <div id="modo-painel" hidden>
+    <div class="app">
+      <aside class="menu-lateral" aria-label="Menu principal">
+        <div class="marca">
+          <img src="img/icone-192.png" alt="" width="36" height="36">
+          <div>
+            <strong id="nome-negocio-menu">GELATECH</strong>
+            <small>Painel da produtora</small>
+          </div>
+        </div>
+        <nav>
+          <ul id="menu-lateral-lista"></ul>
+        </nav>
+        <a class="link-cardapio" href="#cardapio">Ver cardápio do cliente</a>
+      </aside>
+
+      <div class="principal">
+        <header class="topo-painel">
+          <h1 id="titulo-tela">Início</h1>
+          <span class="topo-acoes">
+            <span class="selo-demo" id="selo-demo" hidden>Dados de demonstração</span>
+            <button class="btn btn-secundario btn-pequeno" type="button" id="btn-sair">Sair</button>
+          </span>
+        </header>
+        <main id="conteudo" tabindex="-1">
+          <p class="vazio">Carregando...</p>
+        </main>
+      </div>
+    </div>
+
+    <nav class="menu-inferior" id="menu-inferior" aria-label="Menu"></nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/util.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/armazenamento.js"></script>
+  <script src="js/importacao.js"></script>
+  <script src="js/nuvem.js"></script>
+  <script src="js/pedidos.js"></script>
+  <script src="js/fidelidade.js"></script>
+  <script src="js/producao.js"></script>
+  <script src="js/precificacao.js"></script>
+  <script src="js/financeiro.js"></script>
+  <script src="js/relatorios.js"></script>
+  <script src="js/acesso.js"></script>
+  <script src="js/painel.js"></script>
+  <script src="js/vitrine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

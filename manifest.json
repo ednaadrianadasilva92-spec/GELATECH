@@ -1,0 +1,15 @@
+{
+  "name": "GELATECH",
+  "short_name": "GELATECH",
+  "description": "Tecnologia que conecta produção, organização e empreendedorismo.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF7F2",
+  "theme_color": "#D6336C",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "img/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

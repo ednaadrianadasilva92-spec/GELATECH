@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// Regras de segurança do Firestore para o GELATECH (versão 2: pedidos automáticos).
+// Troque EMAIL_DA_PRODUTORA@exemplo.com pelo e-mail criado em Authentication.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /pedidos/{pedido} {
+      // Qualquer pessoa pode CRIAR um pedido pelo cardápio, só com os campos esperados
+      allow create: if request.resource.data.keys().hasOnly(['codigo', 'cliente', 'whatsapp', 'itens', 'recebimento', 'data', 'obs', 'total', 'importado', 'criadoEm'])
+        && request.resource.data.importado == false
+        && request.resource.data.cliente is string && request.resource.data.cliente.size() <= 80
+        && request.resource.data.whatsapp is string && request.resource.data.whatsapp.size() <= 15
+        && request.resource.data.itens is list && request.resource.data.itens.size() <= 10;
+
+      // Só a produtora, conectada, pode LER os pedidos e marcar como importado
+      allow read, update: if request.auth != null && request.auth.token.email == 'EMAIL_DA_PRODUTORA@exemplo.com';
+
+      // Ninguém apaga pelo app
+      allow delete: if false;
+    }
+  }
+}
